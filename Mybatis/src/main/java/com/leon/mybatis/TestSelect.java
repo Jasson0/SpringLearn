@@ -22,11 +22,16 @@ public class TestSelect {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         //创建能执行映射文件中sql的sqlSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
+
         String statement = "com.leon.mybatis.userMapper.getUser";//映射sql的标识字符串
         String statementAll = "com.leon.mybatis.userMapper.getAll";//映射sql的标识字符串
+        String findAll = "com.leon.mybatis.userMapper.findAll";//映射sql的标识字符串
+
+        User findUser = new User();
+        findUser.setAge(27);
         //执行查询返回一个唯一user对象的sql
         User user = sqlSession.selectOne(statement, 1);
-        List<User> users = sqlSession.selectList(statementAll);
+        List<User> users = sqlSession.selectList(findAll,findUser);
         System.out.println(user);
         for (User user1 :
                 users) {

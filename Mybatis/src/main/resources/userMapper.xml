@@ -16,13 +16,58 @@ User类就是users表所对应的实体类-->
             resultType="User">
         SELECT * FROM users
     </select>
+    <select id="findAll" parameterType="User" resultType="User">
+        SELECT id,name,age FROM users
+        <where>
+            <if test="name != null">
+                name=#{name}
+            </if>
+            <if test="age != null">
+                and age=#{age}
+            </if>
+        </where>
+    </select>
+
     <insert id="insertUser" parameterType="User">
         INSERT INTO users (id,name,age) VALUES (#{id},#{name},#{age})
     </insert>
+
     <update id="updateUser" parameterType="User">
         UPDATE users set name=#{name},age=#{age} WHERE id=#{id}
     </update>
+    <update id="update" parameterType="User">
+        UPDATE users
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
     <delete id="deleteById" parameterType="integer">
         DELETE FROM users WHERE id=#{id}
+    </delete>
+    <delete id="deleteArray" parameterType="integer">
+        DELETE FROM users WHERE id IN 
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteList" parameterType="integer">
+        DELETE FROM users WHERE id IN
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteMap" parameterType="Map">
+        DELETE FROM users WHERE id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        AND  age = #{age}
     </delete>
 </mapper>

@@ -22,7 +22,7 @@ public class TestInsert {
             User user = new User();
             user.setId(3);
             user.setName("leon");
-            user.setAge(26);
+            user.setAge(28);
             sqlSession.insert(insertState, user);
             sqlSession.commit();//默认是不自动提交，必须手工提交
         } catch (IOException e) {
