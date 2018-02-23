@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leon.mybatis.customerMapper">
+    <!-- 配置关联关系 1:N -->
+    <resultMap id="customerOrdersRM" type="Customer">
+        <!-- 配置多的（N），property 属性就是实体中的 List 对象属性名称，ofType 属性就是集合元素的类型 -->
+        <id property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <collection property="orders" ofType="Orders">
+            <id property="id" column="ID"/>
+            <result property="sn" column="SN"/>
+            <result property="remark" column="REMARK"/>
+        </collection>
+    </resultMap>
+    <!-- 查询，关联关系 Map 作为查询条件 -->
+    <select id="find" parameterType="map" resultMap="customerOrdersRM">
+        SELECT
+        c.id,c.name,o.sn,o.remark
+        FROM
+        (SELECT * FROM customer) c
+        LEFT JOIN
+        (SELECT * FROM orders) o
+        ON c.id = o.customer_id
+        WHERE c.name = #{customerName}
+    </select>
+</mapper>
