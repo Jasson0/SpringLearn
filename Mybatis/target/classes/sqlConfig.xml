@@ -5,6 +5,9 @@
         <!-- 打印查询语句 -->
         <setting name="logImpl" value="STDOUT_LOGGING" />
     </settings>
+    <typeAliases>
+        <package name="com.leon.mybatis"/>
+    </typeAliases>
     <environments default="development">
         <!-- 可以定义多个environment，id是唯一值 -->
         <environment id="development">

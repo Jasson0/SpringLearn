@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by leon on 2018/2/23.
  */
-public class Test1 {
+public class TestSelect {
     public static void main(String[] args) throws IOException {
         //mybatis的配置文件
         String resource = "sqlConfig.xml";

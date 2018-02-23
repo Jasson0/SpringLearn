@@ -9,11 +9,20 @@
 User类就是users表所对应的实体类-->
     <!--根据id查询得到一个user对象-->
     <select id="getUser" parameterType="int"
-            resultType="com.leon.mybatis.User">
+            resultType="User">
              select * from users where id=#{id}
          </select>
     <select id="getAll" parameterType="int"
-            resultType="com.leon.mybatis.User">
+            resultType="User">
         SELECT * FROM users
     </select>
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO users (id,name,age) VALUES (#{id},#{name},#{age})
+    </insert>
+    <update id="updateUser" parameterType="User">
+        UPDATE users set name=#{name},age=#{age} WHERE id=#{id}
+    </update>
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM users WHERE id=#{id}
+    </delete>
 </mapper>
